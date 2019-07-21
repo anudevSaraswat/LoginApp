@@ -1,0 +1,32 @@
+<resources>
+
+    <string name="app_name">LoginApp</string>
+    <string name="mail1">Email</string>
+    <string name="phone1">Phone</string>
+    <string name="pass1">Password</string>
+    <string name="hint1">first name</string>
+    <string name="hint2">last name</string>
+    <string name="hint3">email</string>
+    <string name="hint4">phone</string>
+    <string name="hint5">enter password</string>
+    <string name="hint6">enter password again</string>
+    <string name="hint7">DOB</string>
+    <string name="hint8">phone</string>
+    <string name="hint9">password</string>
+    <string name="signup1">SIGN UP</string>
+    <string name="login">LOGIN</string>
+    <string name="notreg">Not registered?</string>
+    <string name="signup2">Sign up</string>
+    <string name="welcome">Welcome!</string>
+    <string name="open">Open drawer</string>
+    <string name="close">Close drawer</string>
+    <string name="about">Just a small application demonstrating features like registering user, log in, log out. Have fun!</string>
+
+    <string-array name="listItems">
+        <item>Registered users</item>
+        <item>Edit details</item>
+        <item>About</item>
+        <item>Log out</item>
+    </string-array>
+
+</resources>

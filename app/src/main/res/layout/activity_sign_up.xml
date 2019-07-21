@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F6DDCC"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".SignUpActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        tools:context=".SignUpActivity">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true"
+            android:id="@+id/fnameParent"
+            android:layout_marginBottom="10dp">
+
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/hint1"
+                android:inputType="text"
+                android:id="@+id/fnameEd"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true"
+            android:layout_below="@id/fnameParent"
+            android:id="@+id/lnameParent"
+            android:layout_marginBottom="10dp">
+
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/hint2"
+                android:inputType="text"
+                android:id="@+id/lnameEd"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true"
+            android:id="@+id/mailParent"
+            android:layout_below="@id/lnameParent"
+            android:layout_marginBottom="10dp">
+
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/hint3"
+                android:inputType="textEmailAddress"
+                android:id="@+id/mailEd"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true"
+            android:id="@+id/phoneParent"
+            android:layout_below="@id/mailParent"
+            android:layout_marginBottom="10dp">
+
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/hint4"
+                android:inputType="phone"
+                android:id="@+id/phoneEd"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true"
+            android:id="@+id/pwd1Parent"
+            android:layout_below="@id/phoneParent"
+            android:layout_marginBottom="10dp">
+
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/hint5"
+                android:inputType="textPassword"
+                android:id="@+id/pwd1Ed"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true"
+            android:id="@+id/pwd2Parent"
+            android:layout_below="@id/pwd1Parent"
+            android:layout_marginBottom="10dp">
+
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/hint6"
+                android:inputType="textPassword"
+                android:id="@+id/pwd2Ed"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true"
+            android:id="@+id/dobParent"
+            android:layout_below="@id/pwd2Parent"
+            android:layout_marginBottom="10dp">
+
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/hint7"
+                android:focusable="false"
+                android:editable="false"
+                android:id="@+id/dobEd"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:text="@string/signup1"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/dobParent"
+            android:id="@+id/login"/>
+
+    </RelativeLayout>
+
+</ScrollView>
