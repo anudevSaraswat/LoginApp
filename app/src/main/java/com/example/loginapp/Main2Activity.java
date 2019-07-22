@@ -43,10 +43,16 @@ public class Main2Activity extends AppCompatActivity implements ListView.OnItemC
         bar = getSupportActionBar();
         bar.setHomeButtonEnabled(true);
         bar.setDisplayHomeAsUpEnabled(true);
-        actionBarText = "LoginApp";
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.listItems));
         listView.setAdapter(adapter);
-        manager.beginTransaction().replace(R.id.drawerContainer, new HomeFragment(), "visibleFrag").addToBackStack(null).commit();
+        if (savedInstanceState == null){
+            actionBarText = "LoginApp";
+            manager.beginTransaction().replace(R.id.drawerContainer, new HomeFragment(), "visibleFrag").addToBackStack(null).commit();
+        }
+        else{
+            actionBarText = savedInstanceState.getString("actionBarText");
+            bar.setTitle(actionBarText);
+        }
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close){
 
             @Override
@@ -151,5 +157,11 @@ public class Main2Activity extends AppCompatActivity implements ListView.OnItemC
 
         else
             return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("actionBarText", actionBarText);
     }
 }
