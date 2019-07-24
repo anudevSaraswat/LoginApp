@@ -164,4 +164,11 @@ public class Main2Activity extends AppCompatActivity implements ListView.OnItemC
         super.onSaveInstanceState(outState);
         outState.putString("actionBarText", actionBarText);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (drawerLayout.isDrawerOpen(listView))
+            drawerLayout.closeDrawer(listView);
+    }
 }
