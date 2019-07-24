@@ -20,6 +20,7 @@
     <string name="welcome">Welcome!</string>
     <string name="open">Open drawer</string>
     <string name="close">Close drawer</string>
+    <string name="update">Update</string>
     <string name="about">Just a small application demonstrating features like registering user, log in, log out. Have fun!</string>
 
     <string-array name="listItems">
