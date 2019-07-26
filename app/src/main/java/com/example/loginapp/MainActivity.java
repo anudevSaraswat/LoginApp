@@ -3,6 +3,7 @@ package com.example.loginapp;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.design.widget.TextInputEditText;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -61,6 +62,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.signuptv:
                 i = new Intent(this, SignUpActivity.class);
                 startActivity(i);
+
+                break;
+
+            case R.id.moredetailstv:
+                FragmentManager manager = getSupportFragmentManager();
+                //manager.beginTransaction().replace(R.id.detailscontainer,)
         }
     }
 

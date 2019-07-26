@@ -17,6 +17,7 @@
     <string name="login">LOGIN</string>
     <string name="notreg">Not registered?</string>
     <string name="signup2">Sign up</string>
+    <string name="moredetails">More details</string>
     <string name="welcome">Welcome!</string>
     <string name="open">Open drawer</string>
     <string name="close">Close drawer</string>
@@ -29,5 +30,6 @@
         <item>About</item>
         <item>Log out</item>
     </string-array>
+
 
 </resources>
