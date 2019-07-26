@@ -28,6 +28,7 @@ public class EditDetailFragment extends Fragment implements View.OnClickListener
     private TextInputEditText pwdted;
     private LoginDatabase database;
     private Context context;
+    private String PHONE;
 
     public EditDetailFragment() { }
 
@@ -46,12 +47,12 @@ public class EditDetailFragment extends Fragment implements View.OnClickListener
         dobted = v.findViewById(R.id.dob);
         Button button = v.findViewById(R.id.update);
         Cursor cursor = MainActivity.getCursor();
-        cursor.moveToFirst();
         String[] names = cursor.getString(1).split(" ", 2);
         fnameted.setText(names[0]);
         lnameted.setText(names[1]);
         mailted.setText(cursor.getString(2));
         phoneted.setText(cursor.getString(3));
+        PHONE = cursor.getString(3);
         pwdted.setText(cursor.getString(4));
         dobted.setText(cursor.getString(5));
         dobted.setOnClickListener(this);
@@ -78,7 +79,7 @@ public class EditDetailFragment extends Fragment implements View.OnClickListener
 
             case R.id.update:
                 database.updateUser(fnameted.getText().toString()+" "+lnameted.getText().toString(), mailted.getText().toString(), phoneted.getText().toString(),
-                        pwdted.getText().toString(), dobted.getText().toString());
+                        PHONE, pwdted.getText().toString(), dobted.getText().toString());
                 Toast.makeText(context, "Details updated!", Toast.LENGTH_SHORT).show();
                 MainActivity.setCursor(database.getUser(Long.parseLong(phoneted.getText().toString())));
         }

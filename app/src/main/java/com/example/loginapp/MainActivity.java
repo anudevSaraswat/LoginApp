@@ -16,11 +16,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextInputEditText phone;
     private TextInputEditText password;
     private static Cursor cursor;
+    private LoginDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        database = new LoginDatabase(this);
         phone = findViewById(R.id.phoneEdit);
         password = findViewById(R.id.passEdit);
         Button loginbtn = findViewById(R.id.loginbtn);
@@ -38,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.loginbtn:
                 if (check()){
-                    LoginDatabase database = new LoginDatabase(this);
                     cursor = database.getUser(Long.parseLong(phone.getText().toString()));
                     if (!cursor.moveToFirst())
                         Toast.makeText(this, "Invalid user!", Toast.LENGTH_SHORT).show();
@@ -87,5 +88,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return status;
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        database.closeDB();
+    }
 }
