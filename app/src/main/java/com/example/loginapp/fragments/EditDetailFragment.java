@@ -20,13 +20,14 @@ import java.util.Calendar;
 
 public class EditDetailFragment extends Fragment implements View.OnClickListener{
 
+    private TextInputEditText fnameted;
+    private TextInputEditText lnameted;
     private TextInputEditText dobted;
+    private TextInputEditText mailted;
+    private TextInputEditText phoneted;
+    private TextInputEditText pwdted;
+    private LoginDatabase database;
     private Context context;
-    private String name;
-    private String mail;
-    private long phone;
-    private String pwd;
-    private String dob;
 
     public EditDetailFragment() { }
 
@@ -36,27 +37,23 @@ public class EditDetailFragment extends Fragment implements View.OnClickListener
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_edit_detail, container, false);
         context = inflater.getContext();
-        Cursor cursor = MainActivity.getCursor();
-        cursor.moveToFirst();
-        TextInputEditText fnameted = v.findViewById(R.id.firstName);
-        TextInputEditText lnameted = v.findViewById(R.id.lastName);
-        TextInputEditText mailted = v.findViewById(R.id.mail);
-        TextInputEditText phoneted = v.findViewById(R.id.phone);
-        TextInputEditText pwdted = v.findViewById(R.id.pwd);
+        database = new LoginDatabase(context);
+        fnameted = v.findViewById(R.id.firstName);
+        lnameted = v.findViewById(R.id.lastName);
+        mailted = v.findViewById(R.id.mail);
+        phoneted = v.findViewById(R.id.phone);
+        pwdted = v.findViewById(R.id.pwd);
         dobted = v.findViewById(R.id.dob);
         Button button = v.findViewById(R.id.update);
+        Cursor cursor = MainActivity.getCursor();
+        cursor.moveToFirst();
         String[] names = cursor.getString(1).split(" ", 2);
-        name = cursor.getString(1);
-        mail = cursor.getString(2);
-        phone = cursor.getLong(3);
-        pwd = cursor.getString(4);
-        dob = cursor.getString(5);
         fnameted.setText(names[0]);
         lnameted.setText(names[1]);
-        mailted.setText(mail);
-        phoneted.setText(phone+"");
-        pwdted.setText(pwd);
-        dobted.setText(dob);
+        mailted.setText(cursor.getString(2));
+        phoneted.setText(cursor.getString(3));
+        pwdted.setText(cursor.getString(4));
+        dobted.setText(cursor.getString(5));
         dobted.setOnClickListener(this);
         button.setOnClickListener(this);
         return v;
@@ -80,9 +77,10 @@ public class EditDetailFragment extends Fragment implements View.OnClickListener
                 break;
 
             case R.id.update:
-                LoginDatabase database = new LoginDatabase(context);
-                database.updateUser(name, mail, phone, pwd, dob);
+                database.updateUser(fnameted.getText().toString()+" "+lnameted.getText().toString(), mailted.getText().toString(), phoneted.getText().toString(),
+                        pwdted.getText().toString(), dobted.getText().toString());
                 Toast.makeText(context, "Details updated!", Toast.LENGTH_SHORT).show();
+                MainActivity.setCursor(database.getUser(Long.parseLong(phoneted.getText().toString())));
         }
     }
 }

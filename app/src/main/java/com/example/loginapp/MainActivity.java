@@ -67,6 +67,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return cursor;
     }
 
+    public static void setCursor(Cursor c){
+        cursor = c;
+    }
+
     private boolean check(){
         boolean status = true;
 
@@ -82,5 +86,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         return status;
     }
+
 
 }

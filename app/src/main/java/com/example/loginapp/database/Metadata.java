@@ -20,7 +20,7 @@ public class Metadata {
 
     static public String DOB = "DOB";
 
-    static public String CREATE_QUERY = "CREATE TABLE " + TABLE_NAME + "(" + _ID + " INTEGER," +
+    static public String CREATE_QUERY = "CREATE TABLE " + TABLE_NAME + "(" + _ID + " INTEGER AUTO INCREMENT," +
             NAME + " VARCHAR(40) NOT NULL," +
             MAIL + " VARCHAR(30) NOT NULL," +
             PHONE + " NUMBER PRIMARY KEY NOT NULL," +

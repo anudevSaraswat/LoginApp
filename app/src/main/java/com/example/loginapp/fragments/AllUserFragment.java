@@ -15,8 +15,6 @@ import com.example.loginapp.database.Metadata;
 
 public class AllUserFragment extends Fragment {
 
-    private Cursor cursor;
-    private LoginDatabase db;
 
     public AllUserFragment() { }
 
@@ -24,8 +22,8 @@ public class AllUserFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_all_user, container, false);
-        db = new LoginDatabase(inflater.getContext());
-        cursor = db.getAllUsers();
+        LoginDatabase db = new LoginDatabase(inflater.getContext());
+        Cursor cursor = db.getAllUsers();
         ListView userList = v.findViewById(R.id.userList);
         SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(inflater.getContext(), R.layout.list_item, cursor,
                 new String[]{Metadata._ID, Metadata.NAME, Metadata.MAIL}, new int[]{R.id.idtv, R.id.nametv, R.id.mailtv});

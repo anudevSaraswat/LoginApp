@@ -33,7 +33,7 @@ public class LoginDatabase extends SQLiteOpenHelper {
         db.insert(Metadata.TABLE_NAME, null, values);
     }
 
-    public void updateUser(String name, String mail, long phn, String pwd, String dob){
+    public void updateUser(String name, String mail, String phn, String pwd, String dob){
         ContentValues values = new ContentValues();
         values.put(Metadata.NAME, name);
         values.put(Metadata.MAIL, mail);
@@ -41,7 +41,7 @@ public class LoginDatabase extends SQLiteOpenHelper {
         values.put(Metadata.PASSWORD, pwd);
         values.put(Metadata.DOB, dob);
         db = this.getWritableDatabase();
-        db.update(Metadata.TABLE_NAME, values, Metadata.PHONE+"=?", new String[]{Long.toString(phn)});
+        db.update(Metadata.TABLE_NAME, values, Metadata.PHONE+"=?", new String[]{phn});
     }
 
     public Cursor getAllUsers(){
