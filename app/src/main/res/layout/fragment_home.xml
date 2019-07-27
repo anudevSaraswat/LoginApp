@@ -38,13 +38,5 @@
         android:textSize="18sp"
         android:id="@+id/moredetailstv"/>
 
-    <fragment
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/moredetailstv"
-        android:id="@+id/detailscontainer"
-        android:layout_marginTop="20dp">
-    </fragment>
-
 
 </RelativeLayout>

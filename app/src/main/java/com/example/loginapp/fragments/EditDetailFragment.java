@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,22 +18,24 @@ import com.example.loginapp.MainActivity;
 import com.example.loginapp.R;
 import com.example.loginapp.database.LoginDatabase;
 import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
-public class EditDetailFragment extends Fragment implements View.OnClickListener{
+public class EditDetailFragment extends Fragment implements View.OnClickListener {
 
-    private TextInputEditText fnameted;
-    private TextInputEditText lnameted;
-    private TextInputEditText dobted;
-    private TextInputEditText mailted;
-    private TextInputEditText phoneted;
-    private TextInputEditText pwdted;
+    private TextInputEditText fNameEd;
+    private TextInputEditText lNameEd;
+    private TextInputEditText dobEd;
+    private TextInputEditText mailEd;
+    private TextInputEditText phoneEd;
+    private TextInputEditText pwdEd;
     private LoginDatabase database;
     private Context context;
     private String PHONE;
 
-    public EditDetailFragment() { }
 
+    public EditDetailFragment() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,38 +43,88 @@ public class EditDetailFragment extends Fragment implements View.OnClickListener
         View v = inflater.inflate(R.layout.fragment_edit_detail, container, false);
         context = inflater.getContext();
         database = new LoginDatabase(context);
-        fnameted = v.findViewById(R.id.firstName);
-        lnameted = v.findViewById(R.id.lastName);
-        mailted = v.findViewById(R.id.mail);
-        phoneted = v.findViewById(R.id.phone);
-        pwdted = v.findViewById(R.id.pwd);
-        dobted = v.findViewById(R.id.dob);
+        fNameEd = v.findViewById(R.id.fNameEd);
+        lNameEd = v.findViewById(R.id.lNameEd);
+        mailEd = v.findViewById(R.id.mailEd);
+        phoneEd = v.findViewById(R.id.phoneEd);
+        pwdEd = v.findViewById(R.id.pwd1Ed);
+        dobEd = v.findViewById(R.id.dobEd);
         Button button = v.findViewById(R.id.update);
         Cursor cursor = MainActivity.getCursor();
+        cursor.moveToFirst();
         String[] names = cursor.getString(1).split(" ", 2);
-        fnameted.setText(names[0]);
-        lnameted.setText(names[1]);
-        mailted.setText(cursor.getString(2));
-        phoneted.setText(cursor.getString(3));
+        fNameEd.setText(names[0]);
+        lNameEd.setText(names[1]);
+        mailEd.setText(cursor.getString(2));
+        phoneEd.setText(cursor.getString(3));
         PHONE = cursor.getString(3);
-        pwdted.setText(cursor.getString(4));
-        dobted.setText(cursor.getString(5));
-        dobted.setOnClickListener(this);
+        pwdEd.setText(cursor.getString(4));
+        dobEd.setText(cursor.getString(5));
+        dobEd.setOnClickListener(this);
         button.setOnClickListener(this);
         return v;
+    }
+
+    public boolean isValidEmail(String s) {
+        Pattern pattern = Patterns.EMAIL_ADDRESS;
+        Matcher matcher = pattern.matcher(s);
+        if (!matcher.matches()) {
+            mailEd.setError("Invalid email!");
+            return false;
+        } else
+            return true;
+    }
+
+    public boolean isValidNumber(String a) {
+        Pattern pattern = Patterns.PHONE;
+        Matcher matcher = pattern.matcher(a);
+        if (matcher.matches() && a.length() == 10)
+            return true;
+        else {
+            phoneEd.setError("Invalid phone!");
+            return false;
+        }
+    }
+
+    public boolean isValidNamePassAndDOB(String fn, String ln, String pass, String DOB) {
+
+        boolean state = true;
+
+        if (fn.equals("")) {
+            fNameEd.setError("First name cannot be empty!");
+            state = false;
+        }
+
+        if (ln.equals("")) {
+            lNameEd.setError("Last name cannot be empty!");
+            state = false;
+        }
+
+        if (pass.equals("")) {
+            pwdEd.setError("Password cannot be empty!");
+            state = false;
+        }
+
+        if (DOB.equals("")) {
+            dobEd.setError("DOB cannot be null!");
+            state = false;
+        }
+
+
+        return state;
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
 
-            case R.id.dob:
+            case R.id.dobEd:
                 Calendar calendar = Calendar.getInstance();
                 new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         int monthh = month +1;
-                        dobted.setText(dayOfMonth+"/"+monthh+"/"+year);
+                        dobEd.setText(dayOfMonth+"/"+monthh+"/"+year);
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE)).show();
 
@@ -78,10 +132,21 @@ public class EditDetailFragment extends Fragment implements View.OnClickListener
                 break;
 
             case R.id.update:
-                database.updateUser(fnameted.getText().toString()+" "+lnameted.getText().toString(), mailted.getText().toString(), phoneted.getText().toString(),
-                        PHONE, pwdted.getText().toString(), dobted.getText().toString());
-                Toast.makeText(context, "Details updated!", Toast.LENGTH_SHORT).show();
-                MainActivity.setCursor(database.getUser(Long.parseLong(phoneted.getText().toString())));
+                try {
+                    boolean a = isValidEmail(mailEd.getText().toString());
+                    boolean b = isValidNumber(phoneEd.getText().toString());
+                    boolean c = isValidNamePassAndDOB(fNameEd.getText().toString(),
+                            lNameEd.getText().toString(), pwdEd.getText().toString(), dobEd.getText().toString());
+                    if (a && b && c){
+                        database.updateUser(fNameEd.getText().toString()+" "+lNameEd.getText().toString(),
+                                mailEd.getText().toString(), phoneEd.getText().toString(),
+                                PHONE, pwdEd.getText().toString(), dobEd.getText().toString());
+                        Toast.makeText(context, "Details updated!", Toast.LENGTH_SHORT).show();
+                        MainActivity.setCursor(database.getUser(Long.parseLong(phoneEd.getText().toString())));
+                    }
+                } catch (Exception e){
+                    Log.e("anudev-->>", e.getMessage());
+                }
         }
     }
 }

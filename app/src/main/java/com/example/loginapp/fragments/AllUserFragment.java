@@ -24,11 +24,12 @@ public class AllUserFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_all_user, container, false);
         LoginDatabase db = new LoginDatabase(inflater.getContext());
         Cursor cursor = db.getAllUsers();
+        cursor.moveToFirst();
         ListView userList = v.findViewById(R.id.userList);
-        SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(inflater.getContext(), R.layout.list_item, cursor,
-                new String[]{Metadata._ID, Metadata.NAME, Metadata.MAIL}, new int[]{R.id.idtv, R.id.nametv, R.id.mailtv});
+        SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(inflater.getContext(),
+                R.layout.list_item, cursor, new String[]{Metadata._ID, Metadata.NAME, Metadata.MAIL},
+                new int[]{R.id.idtv, R.id.nametv, R.id.mailtv});
         userList.setAdapter(cursorAdapter);
         return v;
     }
 }
-

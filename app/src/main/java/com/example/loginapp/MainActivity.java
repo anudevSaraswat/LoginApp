@@ -23,13 +23,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        database = new LoginDatabase(this);
         phone = findViewById(R.id.phoneEdit);
         password = findViewById(R.id.passEdit);
         Button loginbtn = findViewById(R.id.loginbtn);
         TextView signuptv = findViewById(R.id.signuptv);
         loginbtn.setOnClickListener(this);
         signuptv.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        database = new LoginDatabase(this);
     }
 
     @Override
@@ -66,8 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.moredetailstv:
-                FragmentManager manager = getSupportFragmentManager();
-                //manager.beginTransaction().replace(R.id.detailscontainer,)
+
         }
     }
 

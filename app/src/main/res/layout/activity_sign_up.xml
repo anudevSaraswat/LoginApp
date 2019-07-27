@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:passwordToggleEnabled="true"
-            android:id="@+id/fnameParent"
+            android:id="@+id/fNameParent"
             android:layout_marginBottom="10dp">
 
             <android.support.design.widget.TextInputEditText
@@ -28,7 +28,7 @@
                 android:layout_height="match_parent"
                 android:hint="@string/hint1"
                 android:inputType="text"
-                android:id="@+id/fnameEd"/>
+                android:id="@+id/fNameEd"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -36,8 +36,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:passwordToggleEnabled="true"
-            android:layout_below="@id/fnameParent"
-            android:id="@+id/lnameParent"
+            android:layout_below="@id/fNameParent"
+            android:id="@+id/lNameParent"
             android:layout_marginBottom="10dp">
 
             <android.support.design.widget.TextInputEditText
@@ -45,7 +45,7 @@
                 android:layout_height="match_parent"
                 android:hint="@string/hint2"
                 android:inputType="text"
-                android:id="@+id/lnameEd"/>
+                android:id="@+id/lNameEd"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             app:passwordToggleEnabled="true"
             android:id="@+id/mailParent"
-            android:layout_below="@id/lnameParent"
+            android:layout_below="@id/lNameParent"
             android:layout_marginBottom="10dp">
 
             <android.support.design.widget.TextInputEditText

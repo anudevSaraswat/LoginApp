@@ -22,6 +22,10 @@
     <string name="open">Open drawer</string>
     <string name="close">Close drawer</string>
     <string name="update">Update</string>
+    <string name="titlemail">E-mail:</string>
+    <string name="titlephone">Phone:</string>
+    <string name="titlepwd">Password:</string>
+    <string name="titledob">DOB:</string>
     <string name="about">Just a small application demonstrating features like registering user, log in, log out. Have fun!</string>
 
     <string-array name="listItems">

@@ -31,8 +31,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        fname_edit = findViewById(R.id.fnameEd);
-        lname_edit = findViewById(R.id.lnameEd);
+        fname_edit = findViewById(R.id.fNameEd);
+        lname_edit = findViewById(R.id.lNameEd);
         mail_ed = findViewById(R.id.mailEd);
         phn_ed = findViewById(R.id.phoneEd);
         pwd1_edit = findViewById(R.id.pwd1Ed);
@@ -56,11 +56,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     public boolean isValidNumber(String a) {
         Pattern pattern = Patterns.PHONE;
         Matcher matcher = pattern.matcher(a);
-        if (!matcher.matches()) {
+        if (matcher.matches() && a.length() == 10)
+            return true;
+        else {
             phn_ed.setError("Invalid phone!");
             return false;
-        } else
-            return true;
+        }
     }
 
     public boolean isValidNamePassAndDOB(String fn, String ln, String pass1, String pass2, String DOB) {
@@ -71,25 +72,32 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             fname_edit.setError("First name cannot be empty!");
             state = false;
         }
+
         if (ln.equals("")) {
             lname_edit.setError("Last name cannot be empty!");
             state = false;
         }
+
         if (pass1.equals("")) {
             pwd1_edit.setError("Password cannot be empty!");
             state = false;
         }
+
         if (pass2.equals("")) {
             pwd2_edit.setError("Password cannot be empty!");
             state = false;
         }
+
         if (DOB.equals("")) {
             dob_edit.setError("DOB cannot be null!");
+            state = false;
         }
+
         if (!pass1.equals(pass2)) {
             pwd2_edit.setError("password not same as above!");
             state = false;
         }
+
         return state;
     }
 
