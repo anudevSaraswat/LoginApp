@@ -33,10 +33,121 @@
         android:layout_below="@id/welcomename"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:text="@string/moredetails"
+        android:text="@string/details"
         android:textColor="#3F51B5"
         android:textSize="18sp"
-        android:id="@+id/moredetailstv"/>
+        android:id="@+id/detailstv"/>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_below="@id/detailstv"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/title1"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="@string/titlemail"
+            android:textColor="#000"
+            android:textSize="22sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:id="@+id/mailTv"
+            android:textColor="#000"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_toRightOf="@+id/title1"
+            android:layout_toEndOf="@+id/title1" />
+
+        <TextView
+            android:id="@+id/title2"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mailTv"
+            android:layout_marginTop="5dp"
+            android:gravity="end"
+            android:text="@string/titlephone"
+            android:textColor="#000"
+            android:textSize="22sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:id="@+id/phoneTv"
+            android:textColor="#000"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/mailTv"
+            android:layout_toRightOf="@+id/title2"
+            android:layout_toEndOf="@+id/title2"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/titlepwd"
+            android:textColor="#000"
+            android:id="@+id/title3"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/title2"
+            android:textSize="22sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:id="@+id/pwdTv"
+            android:textColor="#000"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/phoneTv"
+            android:layout_toRightOf="@+id/title3"
+            android:layout_toEndOf="@+id/title3"/>
+
+        <TextView
+            android:id="@+id/title4"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title3"
+            android:layout_marginTop="5dp"
+            android:gravity="end"
+            android:text="@string/titledob"
+            android:textColor="#000"
+            android:textSize="22sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:id="@+id/dobTv"
+            android:textColor="#000"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/pwdTv"
+            android:layout_toRightOf="@+id/title4"
+            android:layout_toEndOf="@+id/title4"/>
+
+    </RelativeLayout>
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/floatButton"
+        android:onClick="delete"
+        android:src="@drawable/ic_delete_black_24dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="10dp"/>
 
 </RelativeLayout>

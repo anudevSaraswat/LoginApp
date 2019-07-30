@@ -54,6 +54,11 @@ public class LoginDatabase extends SQLiteOpenHelper {
         return db.query(Metadata.TABLE_NAME, null, Metadata.PHONE+"="+number, null, null, null, null);
     }
 
+    public void deleteUser(String number){
+        db = this.getWritableDatabase();
+        db.delete(Metadata.TABLE_NAME, Metadata.PHONE+"=?", new String[]{number});
+    }
+
     public void closeDB(){
         db.close();
     }

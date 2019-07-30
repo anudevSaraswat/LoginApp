@@ -3,6 +3,7 @@ package com.example.loginapp;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.design.widget.TextInputEditText;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,6 +32,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        ActionBar bar = getSupportActionBar();
+        bar.setHomeButtonEnabled(true);
         fname_edit = findViewById(R.id.fNameEd);
         lname_edit = findViewById(R.id.lNameEd);
         mail_ed = findViewById(R.id.mailEd);
