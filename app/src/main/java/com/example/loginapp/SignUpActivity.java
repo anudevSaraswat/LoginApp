@@ -1,9 +1,12 @@
 package com.example.loginapp;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -117,11 +120,24 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 if (a && b && c) {
                     try {
                         LoginDatabase database = new LoginDatabase(this);
-                        String name = fname_edit.getText() + " " + lname_edit.getText();
-                        database.insertValues(name, mail_ed.getText().toString(), Long.parseLong(phn_ed.getText().toString()), pwd1_edit.getText().toString(), dob_edit.getText().toString());
-                        Toast.makeText(this, "Registered successfully!", Toast.LENGTH_SHORT).show();
-                        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(i);
+                        Cursor cursor = database.getUser(Long.parseLong(phn_ed.getText().toString()));
+                        if (cursor.moveToFirst()){
+                            new AlertDialog.Builder(this).setTitle("ALERT").
+                                    setMessage("User with same number already exists!")
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            }).show();
+                        }
+                        else {
+                            String name = fname_edit.getText() + " " + lname_edit.getText();
+                            database.insertValues(name, mail_ed.getText().toString(), Long.parseLong(phn_ed.getText().toString()), pwd1_edit.getText().toString(), dob_edit.getText().toString());
+                            Toast.makeText(this, "Registered successfully!", Toast.LENGTH_SHORT).show();
+                            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(i);
+                        }
                     } catch (Exception e) {
                         Log.e("anudev-->>", e.getMessage());
                     }

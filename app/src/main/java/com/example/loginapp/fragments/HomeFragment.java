@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.loginapp.MainActivity;
 import com.example.loginapp.R;
 import com.example.loginapp.database.LoginDatabase;
