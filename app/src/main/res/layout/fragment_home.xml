@@ -143,7 +143,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/floatButton"
-        android:onClick="delete"
         android:src="@drawable/ic_delete_black_24dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"

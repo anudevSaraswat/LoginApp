@@ -26,6 +26,8 @@
     <string name="titlephone">Phone:-</string>
     <string name="titlepwd">Password:-</string>
     <string name="titledob">DOB:-</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit user</string>
     <string name="about">Just a small application demonstrating features like registering user, log in, log out. Have fun!</string>
 
     <string-array name="listItems">

@@ -3,27 +3,35 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="?listPreferredItemHeight">
 
     <TextView
         android:layout_width="50dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textColor="@color/colorPrimary"
         android:id="@+id/idtv" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/nametv" />
+            android:id="@+id/nametv"
+            android:gravity="center"
+            android:textColor="@color/colorPrimary"
+            android:layout_weight="1"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/mailtv"/>
+            android:id="@+id/mailtv"
+            android:gravity="center"
+            android:textColor="@color/colorPrimary"
+            android:layout_weight="1"/>
 
     </LinearLayout>
 
