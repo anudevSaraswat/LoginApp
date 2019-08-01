@@ -41,13 +41,15 @@ public class AllUserFragment extends Fragment {
         SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(inflater.getContext(),
                 R.layout.list_item, cursor, new String[]{Metadata._ID, Metadata.NAME, Metadata.MAIL},
                 new int[]{R.id.idtv, R.id.nametv, R.id.mailtv});
-        SwipeActionAdapter adapter = new SwipeActionAdapter(cursorAdapter);
+        final SwipeActionAdapter adapter = new SwipeActionAdapter(cursorAdapter);
         adapter.setListView(userList);
         adapter.addBackground(SwipeDirection.DIRECTION_FAR_LEFT, R.layout.row_bg_left_far)
                 .addBackground(SwipeDirection.DIRECTION_NORMAL_LEFT, R.layout.row_bg_left)
                 .addBackground(SwipeDirection.DIRECTION_FAR_RIGHT, R.layout.row_bg_right_far)
                 .addBackground(SwipeDirection.DIRECTION_NORMAL_RIGHT, R.layout.row_bg_right);
+
         adapter.setSwipeActionListener(new SwipeActionAdapter.SwipeActionListener() {
+
             @Override
             public boolean hasActions(int position, SwipeDirection direction) {
                 if (direction.isLeft()) return true;
@@ -63,20 +65,23 @@ public class AllUserFragment extends Fragment {
             @Override
             public void onSwipe(int[] position, SwipeDirection[] direction) {
                 for (int i = 0; i < position.length; i++){
-                    //int listItemPosition = position[i];
+                    int listItemPosition = position[i];
                     SwipeDirection swipeDirection = direction[i];
+                    Cursor cursor1;
 
                     switch (swipeDirection){
 
                         case DIRECTION_NORMAL_LEFT:
                             fragment.show(getChildFragmentManager(), "edit_dialog");
-                            fragment.setCancelable(false);
+                            cursor1 = (Cursor) adapter.getItem(listItemPosition);
+                            fragment.setId(cursor1.getInt(0));
 
                             break;
 
                         case DIRECTION_FAR_LEFT:
                             fragment.show(getChildFragmentManager(), "edit_dialog");
-                            fragment.setCancelable(false);
+                            cursor1 = (Cursor) adapter.getItem(listItemPosition);
+                            fragment.setId(cursor1.getInt(0));
 
                             break;
 
