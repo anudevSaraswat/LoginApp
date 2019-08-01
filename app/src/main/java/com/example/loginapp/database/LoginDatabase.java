@@ -44,9 +44,9 @@ public class LoginDatabase extends SQLiteOpenHelper {
         db.update(Metadata.TABLE_NAME, values, Metadata.PHONE+"=?", new String[]{oldPhone});
     }
 
-    public Cursor getAllUsers(){
+    public Cursor getAllUsers(long number){
         db = this.getReadableDatabase();
-        return db.query(Metadata.TABLE_NAME, null, null, null, null, null, null);
+        return db.query(Metadata.TABLE_NAME, null, Metadata.PHONE+"!="+number, null, null, null, null);
     }
 
     public Cursor getUser(long number){

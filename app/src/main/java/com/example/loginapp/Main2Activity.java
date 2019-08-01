@@ -18,7 +18,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import com.example.loginapp.fragments.AboutFragment;
 import com.example.loginapp.fragments.AllUserFragment;
-import com.example.loginapp.fragments.EditDetailFragment;
+import com.example.loginapp.fragments.EditMyDetailFragment;
 import com.example.loginapp.fragments.HomeFragment;
 
 public class Main2Activity extends AppCompatActivity implements ListView.OnItemClickListener {
@@ -78,7 +78,7 @@ public class Main2Activity extends AppCompatActivity implements ListView.OnItemC
                 if (fragment instanceof AllUserFragment)
                     actionBarText = "Registered users";
 
-                if (fragment instanceof EditDetailFragment)
+                if (fragment instanceof EditMyDetailFragment)
                     actionBarText = "Edit details";
 
                 if (fragment instanceof AboutFragment)
@@ -116,7 +116,7 @@ public class Main2Activity extends AppCompatActivity implements ListView.OnItemC
                 break;
 
             case 1:
-                fragment = new EditDetailFragment();
+                fragment = new EditMyDetailFragment();
                 h = 1;
 
                 break;

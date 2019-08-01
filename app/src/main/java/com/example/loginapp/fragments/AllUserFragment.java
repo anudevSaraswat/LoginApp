@@ -1,5 +1,6 @@
 package com.example.loginapp.fragments;
 
+import android.app.AlertDialog;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import com.example.loginapp.MainActivity;
 import com.example.loginapp.R;
 import com.example.loginapp.database.LoginDatabase;
 import com.example.loginapp.database.Metadata;
@@ -19,6 +21,8 @@ import com.wdullaer.swipeactionadapter.SwipeDirection;
 
 public class AllUserFragment extends Fragment {
 
+    private DialogFragment fragment;
+    private AlertDialog.Builder dialog;
 
     public AllUserFragment() { }
 
@@ -26,10 +30,14 @@ public class AllUserFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_all_user, container, false);
+        fragment = new DialogFragment();
         LoginDatabase db = new LoginDatabase(inflater.getContext());
-        Cursor cursor = db.getAllUsers();
+        Cursor cursor = db.getAllUsers(MainActivity.getCursor().getLong(3));
         cursor.moveToFirst();
         ListView userList = v.findViewById(R.id.userList);
+        dialog = new AlertDialog.Builder(inflater.getContext())
+        .setPositiveButton("Yes", null).setNegativeButton("No", null)
+        .setTitle("Delete this user?").setCancelable(false);
         SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(inflater.getContext(),
                 R.layout.list_item, cursor, new String[]{Metadata._ID, Metadata.NAME, Metadata.MAIL},
                 new int[]{R.id.idtv, R.id.nametv, R.id.mailtv});
@@ -54,7 +62,34 @@ public class AllUserFragment extends Fragment {
 
             @Override
             public void onSwipe(int[] position, SwipeDirection[] direction) {
+                for (int i = 0; i < position.length; i++){
+                    //int listItemPosition = position[i];
+                    SwipeDirection swipeDirection = direction[i];
 
+                    switch (swipeDirection){
+
+                        case DIRECTION_NORMAL_LEFT:
+                            fragment.show(getChildFragmentManager(), "edit_dialog");
+                            fragment.setCancelable(false);
+
+                            break;
+
+                        case DIRECTION_FAR_LEFT:
+                            fragment.show(getChildFragmentManager(), "edit_dialog");
+                            fragment.setCancelable(false);
+
+                            break;
+
+                        case DIRECTION_NORMAL_RIGHT:
+                            dialog.show();
+
+                            break;
+
+                        case DIRECTION_FAR_RIGHT:
+                            dialog.show();
+                    }
+
+                }
             }
         });
         userList.setAdapter(adapter);

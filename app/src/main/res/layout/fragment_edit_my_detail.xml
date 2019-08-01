@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#F6DDCC"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.EditDetailFragment">
+    tools:context=".fragments.EditMyDetailFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"

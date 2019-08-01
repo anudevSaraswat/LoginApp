@@ -22,7 +22,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class EditDetailFragment extends Fragment implements View.OnClickListener {
+public class EditMyDetailFragment extends Fragment implements View.OnClickListener {
 
     private TextInputEditText fNameEd;
     private TextInputEditText lNameEd;
@@ -35,12 +35,12 @@ public class EditDetailFragment extends Fragment implements View.OnClickListener
     private String PHONE;
 
 
-    public EditDetailFragment() { }
+    public EditMyDetailFragment() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_edit_detail, container, false);
+        View v = inflater.inflate(R.layout.fragment_edit_my_detail, container, false);
         context = inflater.getContext();
         database = new LoginDatabase(context);
         fNameEd = v.findViewById(R.id.fNameEd);
