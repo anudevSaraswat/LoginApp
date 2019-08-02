@@ -138,7 +138,7 @@ public class EditMyDetailFragment extends Fragment implements View.OnClickListen
                     boolean c = isValidNamePassAndDOB(fNameEd.getText().toString(),
                             lNameEd.getText().toString(), pwdEd.getText().toString(), dobEd.getText().toString());
                     if (a && b && c){
-                        database.updateUser(fNameEd.getText().toString()+" "+lNameEd.getText().toString(),
+                        database.updateMyDetail(fNameEd.getText().toString()+" "+lNameEd.getText().toString(),
                                 mailEd.getText().toString(), phoneEd.getText().toString(),
                                 PHONE, pwdEd.getText().toString(), dobEd.getText().toString());
                         Toast.makeText(context, "Details updated!", Toast.LENGTH_SHORT).show();

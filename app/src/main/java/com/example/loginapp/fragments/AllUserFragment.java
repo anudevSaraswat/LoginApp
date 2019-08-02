@@ -3,10 +3,13 @@ package com.example.loginapp.fragments;
 import android.app.AlertDialog;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -23,6 +26,10 @@ public class AllUserFragment extends Fragment {
 
     private DialogFragment fragment;
     private AlertDialog.Builder dialog;
+    private Cursor cursor;
+    private LoginDatabase db;
+    private SimpleCursorAdapter cursorAdapter;
+    private SwipeActionAdapter adapter;
 
     public AllUserFragment() { }
 
@@ -30,18 +37,17 @@ public class AllUserFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_all_user, container, false);
-        fragment = new DialogFragment();
-        LoginDatabase db = new LoginDatabase(inflater.getContext());
-        Cursor cursor = db.getAllUsers(MainActivity.getCursor().getLong(3));
+        db = new LoginDatabase(inflater.getContext());
+        cursor = db.getAllUsers(MainActivity.getCursor().getLong(3));
         cursor.moveToFirst();
-        ListView userList = v.findViewById(R.id.userList);
+        final ListView userList = v.findViewById(R.id.userList);
         dialog = new AlertDialog.Builder(inflater.getContext())
         .setPositiveButton("Yes", null).setNegativeButton("No", null)
         .setTitle("Delete this user?").setCancelable(false);
-        SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(inflater.getContext(),
+        cursorAdapter = new SimpleCursorAdapter(inflater.getContext(),
                 R.layout.list_item, cursor, new String[]{Metadata._ID, Metadata.NAME, Metadata.MAIL},
                 new int[]{R.id.idtv, R.id.nametv, R.id.mailtv});
-        final SwipeActionAdapter adapter = new SwipeActionAdapter(cursorAdapter);
+        adapter = new SwipeActionAdapter(cursorAdapter);
         adapter.setListView(userList);
         adapter.addBackground(SwipeDirection.DIRECTION_FAR_LEFT, R.layout.row_bg_left_far)
                 .addBackground(SwipeDirection.DIRECTION_NORMAL_LEFT, R.layout.row_bg_left)
@@ -68,20 +74,24 @@ public class AllUserFragment extends Fragment {
                     int listItemPosition = position[i];
                     SwipeDirection swipeDirection = direction[i];
                     Cursor cursor1;
+                    fragment = new DialogFragment();
+                    Handler handler = new Handler();
 
                     switch (swipeDirection){
 
                         case DIRECTION_NORMAL_LEFT:
-                            fragment.show(getChildFragmentManager(), "edit_dialog");
                             cursor1 = (Cursor) adapter.getItem(listItemPosition);
                             fragment.setId(cursor1.getInt(0));
+                            fragment.show(getChildFragmentManager(), "edit_dialog");
+                            //cursorAdapter.changeCursor(db.getAllUsers(MainActivity.getCursor().getLong(3)));
 
                             break;
 
                         case DIRECTION_FAR_LEFT:
-                            fragment.show(getChildFragmentManager(), "edit_dialog");
                             cursor1 = (Cursor) adapter.getItem(listItemPosition);
                             fragment.setId(cursor1.getInt(0));
+                            fragment.show(getChildFragmentManager(), "edit_dialog");
+                            //cursorAdapter.changeCursor(db.getAllUsers(MainActivity.getCursor().getLong(3)));
 
                             break;
 
@@ -106,5 +116,9 @@ public class AllUserFragment extends Fragment {
             }
         });
         return v;
+    }
+
+    public SimpleCursorAdapter getAdapter(){
+        return cursorAdapter;
     }
 }
