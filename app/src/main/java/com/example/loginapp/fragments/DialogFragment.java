@@ -1,31 +1,23 @@
 package com.example.loginapp.fragments;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Adapter;
 import android.widget.Button;
-import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
-
-import com.example.loginapp.Main2Activity;
 import com.example.loginapp.R;
 import com.example.loginapp.database.LoginDatabase;
-import com.wdullaer.swipeactionadapter.SwipeActionAdapter;
 
 
 public class DialogFragment extends android.support.v4.app.DialogFragment {
 
     private int id;
-    private Context context;
     private TextInputEditText fNameEd;
     private TextInputEditText lNameEd;
     private TextInputEditText mailEd;
@@ -33,13 +25,9 @@ public class DialogFragment extends android.support.v4.app.DialogFragment {
     private TextInputEditText pwdEd;
     private TextInputEditText dobEd;
 
+
     public DialogFragment() { }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        this.context = context;
-    }
 
     @Nullable
     @Override
@@ -69,11 +57,6 @@ public class DialogFragment extends android.support.v4.app.DialogFragment {
                         mailEd.getText().toString(), phoneEd.getText().toString(), pwdEd.getText().toString(), dobEd.getText().toString());
                 getDialog().dismiss();
                 Toast.makeText(getContext(), "Details updated!", Toast.LENGTH_SHORT).show();
-                int count = ((Main2Activity) context).getSupportFragmentManager().getBackStackEntryCount();
-                Log.e("count", count+"");
-                AllUserFragment fragment = (AllUserFragment) ((Main2Activity) context).getSupportFragmentManager().findFragmentByTag("visibleFrag");
-                SimpleCursorAdapter cursorAdapter = fragment.getAdapter();
-                cursorAdapter.notifyDataSetChanged();
             }
         });
 

@@ -3,13 +3,10 @@ package com.example.loginapp.fragments;
 import android.app.AlertDialog;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -75,7 +72,6 @@ public class AllUserFragment extends Fragment {
                     SwipeDirection swipeDirection = direction[i];
                     Cursor cursor1;
                     fragment = new DialogFragment();
-                    Handler handler = new Handler();
 
                     switch (swipeDirection){
 
@@ -83,7 +79,6 @@ public class AllUserFragment extends Fragment {
                             cursor1 = (Cursor) adapter.getItem(listItemPosition);
                             fragment.setId(cursor1.getInt(0));
                             fragment.show(getChildFragmentManager(), "edit_dialog");
-                            //cursorAdapter.changeCursor(db.getAllUsers(MainActivity.getCursor().getLong(3)));
 
                             break;
 
@@ -91,7 +86,6 @@ public class AllUserFragment extends Fragment {
                             cursor1 = (Cursor) adapter.getItem(listItemPosition);
                             fragment.setId(cursor1.getInt(0));
                             fragment.show(getChildFragmentManager(), "edit_dialog");
-                            //cursorAdapter.changeCursor(db.getAllUsers(MainActivity.getCursor().getLong(3)));
 
                             break;
 

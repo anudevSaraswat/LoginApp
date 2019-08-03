@@ -156,4 +156,24 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE)).show();
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        new AlertDialog.Builder(this).setTitle("Alert")
+                .setMessage("All the entered details will be lost, are you sure?")
+                .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent i = new Intent(SignUpActivity.this, MainActivity.class);
+                        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(i);
+                    }
+                }).setNegativeButton("no", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        }).show();
+    }
 }
