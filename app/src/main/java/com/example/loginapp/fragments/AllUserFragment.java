@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,8 @@ public class AllUserFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_all_user, container, false);
         db = new LoginDatabase(inflater.getContext());
-        cursor = db.getAllUsers(MainActivity.getCursor().getLong(3));
+        Log.e("hello-->>", MainActivity.getCursor().moveToFirst()+"");
+        cursor = db.getAllUsers(MainActivity.getCursor().getLong(3)+"");
         cursor.moveToFirst();
         final ListView userList = v.findViewById(R.id.userList);
         dialog = new AlertDialog.Builder(inflater.getContext())

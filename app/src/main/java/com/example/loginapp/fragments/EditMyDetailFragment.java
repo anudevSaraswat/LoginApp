@@ -133,16 +133,20 @@ public class EditMyDetailFragment extends Fragment implements View.OnClickListen
 
             case R.id.update:
                 try {
-                    boolean a = isValidEmail(mailEd.getText().toString());
-                    boolean b = isValidNumber(phoneEd.getText().toString());
-                    boolean c = isValidNamePassAndDOB(fNameEd.getText().toString(),
-                            lNameEd.getText().toString(), pwdEd.getText().toString(), dobEd.getText().toString());
+                    String fname = fNameEd.getText().toString();
+                    String lname = lNameEd.getText().toString();
+                    String name = fname + " " + lname;
+                    String mail = mailEd.getText().toString();
+                    String phone = phoneEd.getText().toString();
+                    String pwd = pwdEd.getText().toString();
+                    String dob = dobEd.getText().toString();
+                    boolean a = isValidEmail(mail);
+                    boolean b = isValidNumber(phone);
+                    boolean c = isValidNamePassAndDOB(fname, lname, pwd, dob);
                     if (a && b && c){
-                        database.updateMyDetail(fNameEd.getText().toString()+" "+lNameEd.getText().toString(),
-                                mailEd.getText().toString(), phoneEd.getText().toString(),
-                                PHONE, pwdEd.getText().toString(), dobEd.getText().toString());
+                        database.updateMyDetail(name, mail, phone, PHONE, pwd, dob);
                         Toast.makeText(context, "Details updated!", Toast.LENGTH_SHORT).show();
-                        MainActivity.setCursor(database.getUser(Long.parseLong(phoneEd.getText().toString())));
+                        MainActivity.setCursor(database.getUser(phoneEd.getText().toString()));
                     }
                 } catch (Exception e){
                     Log.e("anudev-->>", e.getMessage());

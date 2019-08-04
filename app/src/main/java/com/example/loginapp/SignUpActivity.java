@@ -22,14 +22,14 @@ import java.util.regex.Pattern;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextInputEditText mail_ed;
-    private TextInputEditText phn_ed;
-    private TextInputEditText fname_edit;
-    private TextInputEditText lname_edit;
-    private TextInputEditText pwd1_edit;
-    private TextInputEditText pwd2_edit;
-    private TextInputEditText dob_edit;
-    private Button log_btn;
+    private TextInputEditText mailEd;
+    private TextInputEditText phoneEd;
+    private TextInputEditText fNameEd;
+    private TextInputEditText lNameEd;
+    private TextInputEditText pwd1Ed;
+    private TextInputEditText pwd2Ed;
+    private TextInputEditText dobEd;
+    private Button logButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,23 +37,23 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_sign_up);
         ActionBar bar = getSupportActionBar();
         bar.setHomeButtonEnabled(true);
-        fname_edit = findViewById(R.id.fNameEd);
-        lname_edit = findViewById(R.id.lNameEd);
-        mail_ed = findViewById(R.id.mailEd);
-        phn_ed = findViewById(R.id.phoneEd);
-        pwd1_edit = findViewById(R.id.pwd1Ed);
-        pwd2_edit = findViewById(R.id.pwd2Ed);
-        dob_edit = findViewById(R.id.dobEd);
-        log_btn = findViewById(R.id.login);
-        dob_edit.setOnClickListener(this);
-        log_btn.setOnClickListener(this);
+        fNameEd = findViewById(R.id.fNameEd);
+        lNameEd = findViewById(R.id.lNameEd);
+        mailEd = findViewById(R.id.mailEd);
+        phoneEd = findViewById(R.id.phoneEd);
+        pwd1Ed = findViewById(R.id.pwd1Ed);
+        pwd2Ed = findViewById(R.id.pwd2Ed);
+        dobEd = findViewById(R.id.dobEd);
+        logButton = findViewById(R.id.login);
+        dobEd.setOnClickListener(this);
+        logButton.setOnClickListener(this);
     }
 
     public boolean isValidEmail(String s) {
         Pattern pattern = Patterns.EMAIL_ADDRESS;
         Matcher matcher = pattern.matcher(s);
         if (!matcher.matches()) {
-            mail_ed.setError("Invalid email!");
+            mailEd.setError("Invalid email!");
             return false;
         } else
             return true;
@@ -65,7 +65,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         if (matcher.matches() && a.length() == 10)
             return true;
         else {
-            phn_ed.setError("Invalid phone!");
+            phoneEd.setError("Invalid phone!");
             return false;
         }
     }
@@ -75,32 +75,32 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         boolean state = true;
 
         if (fn.equals("")) {
-            fname_edit.setError("First name cannot be empty!");
+            fNameEd.setError("First name cannot be empty!");
             state = false;
         }
 
         if (ln.equals("")) {
-            lname_edit.setError("Last name cannot be empty!");
+            lNameEd.setError("Last name cannot be empty!");
             state = false;
         }
 
         if (pass1.equals("")) {
-            pwd1_edit.setError("Password cannot be empty!");
+            pwd1Ed.setError("Password cannot be empty!");
             state = false;
         }
 
         if (pass2.equals("")) {
-            pwd2_edit.setError("Password cannot be empty!");
+            pwd2Ed.setError("Password cannot be empty!");
             state = false;
         }
 
         if (DOB.equals("")) {
-            dob_edit.setError("DOB cannot be null!");
+            dobEd.setError("DOB cannot be null!");
             state = false;
         }
 
         if (!pass1.equals(pass2)) {
-            pwd2_edit.setError("password not same as above!");
+            pwd2Ed.setError("password not same as above!");
             state = false;
         }
 
@@ -113,14 +113,22 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         switch (v.getId()) {
 
             case R.id.login:
-                boolean a = isValidEmail(mail_ed.getText().toString());
-                boolean b = isValidNumber(phn_ed.getText().toString());
-                boolean c = isValidNamePassAndDOB(fname_edit.getText().toString(), lname_edit.getText().toString(), pwd1_edit.getText().toString(), pwd2_edit.getText().toString(), dob_edit.getText().toString());
+                String fname = fNameEd.getText().toString();
+                String lname = lNameEd.getText().toString();
+                String name = fname + " " + lname;
+                String mail = mailEd.getText().toString();
+                String phone = phoneEd.getText().toString();
+                String pwd1 = pwd1Ed.getText().toString();
+                String pwd2 = pwd2Ed.getText().toString();
+                String dob = dobEd.getText().toString();
+                boolean a = isValidEmail(mail);
+                boolean b = isValidNumber(phone);
+                boolean c = isValidNamePassAndDOB(fname, lname, pwd1, pwd2, dob);
                 Intent i = new Intent(this, MainActivity.class);
                 if (a && b && c) {
                     try {
                         LoginDatabase database = new LoginDatabase(this);
-                        Cursor cursor = database.getUser(Long.parseLong(phn_ed.getText().toString()));
+                        Cursor cursor = database.getUser(phone);
                         if (cursor.moveToFirst()){
                             new AlertDialog.Builder(this).setTitle("ALERT").
                                     setMessage("User with same number already exists!")
@@ -132,8 +140,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                             }).show();
                         }
                         else {
-                            String name = fname_edit.getText() + " " + lname_edit.getText();
-                            database.insertValues(name, mail_ed.getText().toString(), Long.parseLong(phn_ed.getText().toString()), pwd1_edit.getText().toString(), dob_edit.getText().toString());
+                            database.insertValues(name, mail, phone, pwd1, dob);
                             Toast.makeText(this, "Registered successfully!", Toast.LENGTH_SHORT).show();
                             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(i);
@@ -151,7 +158,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         int c = month + 1;
-                        dob_edit.setText(dayOfMonth + "/" + c + "/" + year);
+                        dobEd.setText(dayOfMonth + "/" + c + "/" + year);
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE)).show();
         }
@@ -159,7 +166,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
         new AlertDialog.Builder(this).setTitle("Alert")
                 .setMessage("All the entered details will be lost, are you sure?")
                 .setPositiveButton("yes", new DialogInterface.OnClickListener() {

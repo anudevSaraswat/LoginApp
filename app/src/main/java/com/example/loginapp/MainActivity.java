@@ -3,7 +3,6 @@ package com.example.loginapp;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.design.widget.TextInputEditText;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,8 +13,8 @@ import com.example.loginapp.database.LoginDatabase;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private TextInputEditText phone;
-    private TextInputEditText password;
+    private TextInputEditText phoneEd;
+    private TextInputEditText pwdEd;
     private static Cursor cursor;
     private LoginDatabase database;
 
@@ -23,8 +22,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        phone = findViewById(R.id.phoneEdit);
-        password = findViewById(R.id.passEdit);
+        phoneEd = findViewById(R.id.phoneEdit);
+        pwdEd = findViewById(R.id.passEdit);
         Button loginbtn = findViewById(R.id.loginbtn);
         TextView signuptv = findViewById(R.id.signuptv);
         loginbtn.setOnClickListener(this);
@@ -45,15 +44,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
 
             case R.id.loginbtn:
-                if (check()){
-                    cursor = database.getUser(Long.parseLong(phone.getText().toString()));
+                String phone = phoneEd.getText().toString();
+                String pwd = pwdEd.getText().toString();
+                if (check(phone, pwd)){
+                    cursor = database.getUser(phone);
                     if (!cursor.moveToFirst())
                         Toast.makeText(this, "Invalid user!", Toast.LENGTH_SHORT).show();
                     else {
                         cursor.moveToFirst();
                         String pwd1 = cursor.getString(4);
-                        String pwd2 = password.getText().toString();
-                        if (pwd1.equals(pwd2)) {
+                        if (pwd1.equals(pwd)) {
                             i = new Intent(this, Main2Activity.class);
                             startActivity(i);
                         }
@@ -82,25 +82,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cursor = c;
     }
 
-    private boolean check(){
+    private boolean check(String phone, String pwd){
         boolean status = true;
 
-        if (phone.getText().toString().equals("")){
+        if (phone.equals("")){
             status = false;
-            phone.setError("Field empty!");
+            phoneEd.setError("Field empty!");
         }
 
-        if (password.getText().toString().equals("")){
+        if (pwd.equals("")){
             status = false;
-            password.setError("Field empty!");
+            pwdEd.setError("Field empty!");
         }
 
         return status;
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        //database.closeDB();
     }
 }
