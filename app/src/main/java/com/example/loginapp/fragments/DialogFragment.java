@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,7 @@ import com.example.loginapp.database.LoginDatabase;
 
 public class DialogFragment extends android.support.v4.app.DialogFragment {
 
-    private int id;
+    private long phone;
     private TextInputEditText fNameEd;
     private TextInputEditText lNameEd;
     private TextInputEditText mailEd;
@@ -41,26 +42,26 @@ public class DialogFragment extends android.support.v4.app.DialogFragment {
         dobEd = view.findViewById(R.id.dobEd);
         Button button = view.findViewById(R.id.update);
         final LoginDatabase database = new LoginDatabase(getContext());
-        Cursor cursor = database.getUser1(id);
-        cursor.moveToFirst();
-        String[] names = cursor.getString(1).split(" ", 2);
-        fNameEd.setText(names[0]);
-        lNameEd.setText(names[1]);
-        mailEd.setText(cursor.getString(2));
-        phoneEd.setText(cursor.getString(3));
-        pwdEd.setText(cursor.getString(4));
-        dobEd.setText(cursor.getString(5));
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                database.updateUser(id+"", fNameEd.getText().toString()+" "+lNameEd.getText().toString(),
-                        mailEd.getText().toString(), phoneEd.getText().toString(), pwdEd.getText().toString(), dobEd.getText().toString());
-                getDialog().dismiss();
-                Toast.makeText(getContext(), "Details updated!", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
+        Log.e("number-->>", phone+"");
+        Cursor cursor = database.getUser(phone+"");
+        if (cursor.moveToFirst()) {
+            String[] names = cursor.getString(1).split(" ", 2);
+            fNameEd.setText(names[0]);
+            lNameEd.setText(names[1]);
+            mailEd.setText(cursor.getString(2));
+            phoneEd.setText(cursor.getString(3));
+            pwdEd.setText(cursor.getString(4));
+            dobEd.setText(cursor.getString(5));
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    database.updateMyDetail(fNameEd.getText().toString() + " " + lNameEd.getText().toString(),
+                            mailEd.getText().toString(), phoneEd.getText().toString(), phone + "", pwdEd.getText().toString(), dobEd.getText().toString());
+                    getDialog().dismiss();
+                    Toast.makeText(getContext(), "Details updated!", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
         return view;
     }
 
@@ -71,8 +72,8 @@ public class DialogFragment extends android.support.v4.app.DialogFragment {
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
     }
 
-    public void setId(int i){
-        id = i;
+    public void setNumber(long number){
+        phone = number;
     }
 
 }

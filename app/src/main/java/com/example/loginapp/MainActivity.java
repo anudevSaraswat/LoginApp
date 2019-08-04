@@ -15,8 +15,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private TextInputEditText phoneEd;
     private TextInputEditText pwdEd;
-    private static Cursor cursor;
     private LoginDatabase database;
+    public static String USER_PHONE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +47,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String phone = phoneEd.getText().toString();
                 String pwd = pwdEd.getText().toString();
                 if (check(phone, pwd)){
-                    cursor = database.getUser(phone);
+                    Cursor cursor = database.getUser(phone);
                     if (!cursor.moveToFirst())
                         Toast.makeText(this, "Invalid user!", Toast.LENGTH_SHORT).show();
                     else {
                         cursor.moveToFirst();
                         String pwd1 = cursor.getString(4);
                         if (pwd1.equals(pwd)) {
+                            USER_PHONE = phone;
                             i = new Intent(this, Main2Activity.class);
                             startActivity(i);
                         }
@@ -74,12 +75,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public static Cursor getCursor(){
-        return cursor;
-    }
+    public static String getUserPhone(){return USER_PHONE;}
 
-    public static void setCursor(Cursor c){
-        cursor = c;
+    public static void setPhone(String phone){
+        USER_PHONE = phone;
     }
 
     private boolean check(String phone, String pwd){

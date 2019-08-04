@@ -2,10 +2,12 @@ package com.example.loginapp.fragments;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -50,7 +52,7 @@ public class EditMyDetailFragment extends Fragment implements View.OnClickListen
         pwdEd = v.findViewById(R.id.pwd1Ed);
         dobEd = v.findViewById(R.id.dobEd);
         Button button = v.findViewById(R.id.update);
-        Cursor cursor = MainActivity.getCursor();
+        Cursor cursor = database.getUser(MainActivity.getUserPhone()+"");
         cursor.moveToFirst();
         String[] names = cursor.getString(1).split(" ", 2);
         fNameEd.setText(names[0]);
@@ -144,9 +146,22 @@ public class EditMyDetailFragment extends Fragment implements View.OnClickListen
                     boolean b = isValidNumber(phone);
                     boolean c = isValidNamePassAndDOB(fname, lname, pwd, dob);
                     if (a && b && c){
-                        database.updateMyDetail(name, mail, phone, PHONE, pwd, dob);
-                        Toast.makeText(context, "Details updated!", Toast.LENGTH_SHORT).show();
-                        MainActivity.setCursor(database.getUser(phoneEd.getText().toString()));
+                        Cursor cursor = database.getUser(phone);
+                        if (cursor.moveToFirst()){
+                            new AlertDialog.Builder(context).setTitle("Alert!")
+                                    .setMessage("User with same number exists. Choose a different one!")
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    }).show();
+                        }
+                        else {
+                            database.updateMyDetail(name, mail, phone, PHONE, pwd, dob);
+                            Toast.makeText(context, "Details updated!", Toast.LENGTH_SHORT).show();
+                            MainActivity.setPhone(phone);
+                        }
                     }
                 } catch (Exception e){
                     Log.e("anudev-->>", e.getMessage());

@@ -36,16 +36,15 @@ public class AllUserFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_all_user, container, false);
         db = new LoginDatabase(inflater.getContext());
-        Log.e("hello-->>", MainActivity.getCursor().moveToFirst()+"");
-        cursor = db.getAllUsers(MainActivity.getCursor().getLong(3)+"");
+        cursor = db.getAllUsers(MainActivity.getUserPhone());
         cursor.moveToFirst();
         final ListView userList = v.findViewById(R.id.userList);
         dialog = new AlertDialog.Builder(inflater.getContext())
         .setPositiveButton("Yes", null).setNegativeButton("No", null)
         .setTitle("Delete this user?").setCancelable(false);
         cursorAdapter = new SimpleCursorAdapter(inflater.getContext(),
-                R.layout.list_item, cursor, new String[]{Metadata._ID, Metadata.NAME, Metadata.MAIL},
-                new int[]{R.id.idtv, R.id.nametv, R.id.mailtv});
+                R.layout.list_item, cursor, new String[]{Metadata.NAME, Metadata.PHONE},
+                new int[]{R.id.nameTv, R.id.phoneTv});
         adapter = new SwipeActionAdapter(cursorAdapter);
         adapter.setListView(userList);
         adapter.addBackground(SwipeDirection.DIRECTION_FAR_LEFT, R.layout.row_bg_left_far)
@@ -79,14 +78,14 @@ public class AllUserFragment extends Fragment {
 
                         case DIRECTION_NORMAL_LEFT:
                             cursor1 = (Cursor) adapter.getItem(listItemPosition);
-                            fragment.setId(cursor1.getInt(0));
+                            fragment.setNumber(cursor1.getLong(3));
                             fragment.show(getChildFragmentManager(), "edit_dialog");
 
                             break;
 
                         case DIRECTION_FAR_LEFT:
                             cursor1 = (Cursor) adapter.getItem(listItemPosition);
-                            fragment.setId(cursor1.getInt(0));
+                            fragment.setNumber(cursor1.getLong(3));
                             fragment.show(getChildFragmentManager(), "edit_dialog");
 
                             break;
@@ -107,8 +106,8 @@ public class AllUserFragment extends Fragment {
         userList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TextView textView = view.findViewById(R.id.idtv);
-                int u_id = Integer.parseInt(textView.getText().toString());
+                //TextView textView = view.findViewById(R.id.idtv);
+                //int u_id = Integer.parseInt(textView.getText().toString());
             }
         });
         return v;

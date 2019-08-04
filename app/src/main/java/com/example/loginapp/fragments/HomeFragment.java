@@ -31,9 +31,9 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         context = inflater.getContext();
-        Cursor cursor = MainActivity.getCursor();
-        View v = inflater.inflate(R.layout.fragment_home, container, false);
         loginDatabase = new LoginDatabase(context);
+        Cursor cursor = loginDatabase.getUser(MainActivity.getUserPhone());
+        View v = inflater.inflate(R.layout.fragment_home, container, false);
         TextView name = v.findViewById(R.id.welcomename);
         TextView mail = v.findViewById(R.id.mailTv);
         phone = v.findViewById(R.id.phoneTv);

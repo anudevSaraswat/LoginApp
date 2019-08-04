@@ -40,11 +40,11 @@ public class LoginDatabase extends SQLiteOpenHelper {
     }
 
 
-    public void updateUser(String id, String name, String mail, String phone, String pwd, String dob){
-        ContentValues values = getCV(name, mail, phone, pwd, dob);
-        db = this.getWritableDatabase();
-        db.update(Metadata.TABLE_NAME, values, Metadata._ID+"=?", new String[]{id});
-    }
+//    public void updateUser(String id, String name, String mail, String phone, String pwd, String dob){
+//        ContentValues values = getCV(name, mail, phone, pwd, dob);
+//        db = this.getWritableDatabase();
+//        db.update(Metadata.TABLE_NAME, values, Metadata._ID+"=?", new String[]{id});
+//    }
 
 
     public Cursor getAllUsers(String number){
@@ -65,10 +65,10 @@ public class LoginDatabase extends SQLiteOpenHelper {
     }
 
 
-    public Cursor getUser1(int id){
-        db = this.getReadableDatabase();
-        return db.query(Metadata.TABLE_NAME, null, Metadata._ID+"="+id, null, null, null, null);
-    }
+//    public Cursor getUser1(int id){
+//        db = this.getReadableDatabase();
+//        return db.query(Metadata.TABLE_NAME, null, Metadata._ID+"="+id, null, null, null, null);
+//    }
 
 
     private ContentValues getCV(String name, String mail, String phn, String pwd, String dob){
