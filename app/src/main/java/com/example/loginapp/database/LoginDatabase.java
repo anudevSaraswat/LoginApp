@@ -10,7 +10,6 @@ public class LoginDatabase extends SQLiteOpenHelper {
 
     private SQLiteDatabase db;
 
-
     public LoginDatabase(Context context) {
         super(context, Metadata.DATABASE_NAME, null, Metadata.DB_VERSION);
     }
