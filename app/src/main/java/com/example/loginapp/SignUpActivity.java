@@ -29,7 +29,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private TextInputEditText pwd1Ed;
     private TextInputEditText pwd2Ed;
     private TextInputEditText dobEd;
-    private Button logButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +43,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         pwd1Ed = findViewById(R.id.pwd1Ed);
         pwd2Ed = findViewById(R.id.pwd2Ed);
         dobEd = findViewById(R.id.dobEd);
-        logButton = findViewById(R.id.login);
+        Button logButton = findViewById(R.id.login);
         dobEd.setOnClickListener(this);
         logButton.setOnClickListener(this);
     }
