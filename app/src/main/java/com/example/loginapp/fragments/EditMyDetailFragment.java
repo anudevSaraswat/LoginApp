@@ -156,6 +156,7 @@ public class EditMyDetailFragment extends Fragment implements View.OnClickListen
                                             dialog.dismiss();
                                         }
                                     }).show();
+                            cursor.close();
                         }
                         else {
                             database.updateMyDetail(name, mail, phone, PHONE, pwd, dob);

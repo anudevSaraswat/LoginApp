@@ -138,6 +138,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                     dialog.dismiss();
                                 }
                             }).show();
+                            cursor.close();
                         }
                         else {
                             database.insertValues(name, mail, phone, pwd1, dob);

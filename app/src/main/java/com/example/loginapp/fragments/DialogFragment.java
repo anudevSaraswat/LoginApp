@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +41,6 @@ public class DialogFragment extends android.support.v4.app.DialogFragment {
         dobEd = view.findViewById(R.id.dobEd);
         Button button = view.findViewById(R.id.update);
         final LoginDatabase database = new LoginDatabase(getContext());
-        Log.e("number-->>", phone+"");
         Cursor cursor = database.getUser(phone+"");
         if (cursor.moveToFirst()) {
             String[] names = cursor.getString(1).split(" ", 2);
@@ -59,6 +57,8 @@ public class DialogFragment extends android.support.v4.app.DialogFragment {
                             mailEd.getText().toString(), phoneEd.getText().toString(), phone + "", pwdEd.getText().toString(), dobEd.getText().toString());
                     getDialog().dismiss();
                     Toast.makeText(getContext(), "Details updated!", Toast.LENGTH_SHORT).show();
+                    AllUserFragment users = (AllUserFragment) DialogFragment.this.getParentFragment();
+                    users.refresh();
                 }
             });
         }

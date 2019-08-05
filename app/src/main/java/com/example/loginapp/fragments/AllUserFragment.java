@@ -1,6 +1,7 @@
 package com.example.loginapp.fragments;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,7 +12,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.loginapp.MainActivity;
 import com.example.loginapp.R;
 import com.example.loginapp.database.LoginDatabase;
@@ -38,10 +40,7 @@ public class AllUserFragment extends Fragment {
         db = new LoginDatabase(inflater.getContext());
         cursor = db.getAllUsers(MainActivity.getUserPhone());
         cursor.moveToFirst();
-        final ListView userList = v.findViewById(R.id.userList);
-        dialog = new AlertDialog.Builder(inflater.getContext())
-        .setPositiveButton("Yes", null).setNegativeButton("No", null)
-        .setTitle("Delete this user?").setCancelable(false);
+        ListView userList = v.findViewById(R.id.userList);
         cursorAdapter = new SimpleCursorAdapter(inflater.getContext(),
                 R.layout.list_item, cursor, new String[]{Metadata.NAME, Metadata.PHONE},
                 new int[]{R.id.nameTv, R.id.phoneTv});
@@ -71,22 +70,35 @@ public class AllUserFragment extends Fragment {
                 for (int i = 0; i < position.length; i++){
                     int listItemPosition = position[i];
                     SwipeDirection swipeDirection = direction[i];
-                    Cursor cursor1;
+                    final Cursor cursor1 = (Cursor) adapter.getItem(listItemPosition);
                     fragment = new DialogFragment();
+                    dialog = new AlertDialog.Builder(getContext())
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    db.deleteUser(cursor1.getLong(3)+"");
+                                    dialog.dismiss();
+                                    Toast.makeText(getContext(), "User deleted!", Toast.LENGTH_SHORT).show();
+                                    refresh();
+                                }
+                            })
+                            .setNegativeButton("No", null)
+                            .setTitle("Alert").setMessage("Are you sure you want to delete the user?")
+                            .setCancelable(false);
 
                     switch (swipeDirection){
 
                         case DIRECTION_NORMAL_LEFT:
-                            cursor1 = (Cursor) adapter.getItem(listItemPosition);
                             fragment.setNumber(cursor1.getLong(3));
                             fragment.show(getChildFragmentManager(), "edit_dialog");
+                            //cursor1.close();
 
                             break;
 
                         case DIRECTION_FAR_LEFT:
-                            cursor1 = (Cursor) adapter.getItem(listItemPosition);
                             fragment.setNumber(cursor1.getLong(3));
                             fragment.show(getChildFragmentManager(), "edit_dialog");
+                            //cursor1.close();
 
                             break;
 
@@ -113,7 +125,8 @@ public class AllUserFragment extends Fragment {
         return v;
     }
 
-    public SimpleCursorAdapter getAdapter(){
-        return cursorAdapter;
+    public void refresh(){
+        cursorAdapter.changeCursor(db.getAllUsers(MainActivity.getUserPhone()));
+        adapter.notifyDataSetChanged();
     }
 }
