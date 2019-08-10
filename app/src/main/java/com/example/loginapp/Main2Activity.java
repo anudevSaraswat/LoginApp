@@ -11,7 +11,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,7 +20,6 @@ import android.widget.Toast;
 import com.example.loginapp.fragments.AboutFragment;
 import com.example.loginapp.fragments.AllUserFragment;
 import com.example.loginapp.fragments.EditMyDetailFragment;
-import com.example.loginapp.fragments.HomeFragment;
 
 public class Main2Activity extends AppCompatActivity implements ListView.OnItemClickListener {
 
@@ -49,7 +47,7 @@ public class Main2Activity extends AppCompatActivity implements ListView.OnItemC
         listView.setAdapter(adapter);
         if (savedInstanceState == null){
             actionBarText = "LoginApp";
-            manager.beginTransaction().replace(R.id.drawerContainer, new HomeFragment(), "visibleFrag").addToBackStack(null).commit();
+            manager.beginTransaction().replace(R.id.drawerContainer, new AllUserFragment(), "visibleFrag").addToBackStack(null).commit();
         }
         else{
             actionBarText = savedInstanceState.getString("actionBarText");
@@ -74,9 +72,9 @@ public class Main2Activity extends AppCompatActivity implements ListView.OnItemC
         manager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
             @Override
             public void onBackStackChanged() {
-                if (drawerLayout.isDrawerOpen(listView))
-                    drawerLayout.closeDrawer(listView);
+
                 Fragment fragment = manager.findFragmentByTag("visibleFrag");
+
                 if (fragment instanceof AllUserFragment)
                     actionBarText = "Registered users";
 
@@ -86,12 +84,9 @@ public class Main2Activity extends AppCompatActivity implements ListView.OnItemC
                 if (fragment instanceof AboutFragment)
                     actionBarText = "About";
 
-                if (fragment instanceof HomeFragment)
-                    actionBarText = "LoginApp";
-
                 if (fragment == null){
                     transaction = manager.beginTransaction();
-                    transaction.replace(R.id.drawerContainer, new HomeFragment(), "visibleFrag");
+                    transaction.replace(R.id.drawerContainer, new AllUserFragment(), "visibleFrag");
                     transaction.addToBackStack(null);
                     transaction.commit();
                     Toast.makeText(Main2Activity.this, "already on first page!", Toast.LENGTH_SHORT).show();
@@ -112,24 +107,18 @@ public class Main2Activity extends AppCompatActivity implements ListView.OnItemC
 
         switch (position){
             case 0:
-                fragment = new AllUserFragment();
-                h = 1;
-
-                break;
-
-            case 1:
                 fragment = new EditMyDetailFragment();
                 h = 1;
 
                 break;
 
-            case 2:
+            case 1:
                 fragment = new AboutFragment();
                 h = 1;
 
                 break;
 
-            case 3:
+            case 2:
                 SharedPreferences pref = getSharedPreferences("preference", MODE_PRIVATE);
                 SharedPreferences.Editor edit = pref.edit();
                 edit.putInt("loggedIn", 0);
@@ -137,7 +126,6 @@ public class Main2Activity extends AppCompatActivity implements ListView.OnItemC
                 Intent i = new Intent(this, MainActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
-
         }
 
         if (h == 1) {
@@ -173,8 +161,13 @@ public class Main2Activity extends AppCompatActivity implements ListView.OnItemC
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        if (drawerLayout.isDrawerOpen(listView))
+        if (manager.getBackStackEntryCount() > 1) {
+            super.onBackPressed();
+            if (drawerLayout.isDrawerOpen(listView))
+                drawerLayout.closeDrawer(listView);
+        }
+        else
+            if (drawerLayout.isDrawerOpen(listView))
             drawerLayout.closeDrawer(listView);
     }
 }

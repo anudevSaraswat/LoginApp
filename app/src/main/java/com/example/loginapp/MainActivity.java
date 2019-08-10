@@ -57,8 +57,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
 
-        Intent i;
-
         switch (v.getId()){
 
             case R.id.loginbtn:
@@ -84,9 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 edit.putString("userPhone2", "");
                                 edit.putString("userPassword", "");
                             }
-
                             edit.apply();
-                            i = new Intent(this, Main2Activity.class);
                             startActivity(i);
                         }
                         else

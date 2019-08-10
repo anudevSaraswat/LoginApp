@@ -29,17 +29,13 @@
     <string name="delete">Delete</string>
     <string name="edit">Edit user</string>
     <string name="remember">Remember me</string>
+    <string name="mydetail">My Details</string>
     <string name="about">Just a small application demonstrating features like registering user, log in, log out. Have fun!</string>
 
     <string-array name="listItems">
-        <item>Registered users</item>
         <item>Edit my details</item>
         <item>About</item>
         <item>Log out</item>
     </string-array>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
 
 </resources>
