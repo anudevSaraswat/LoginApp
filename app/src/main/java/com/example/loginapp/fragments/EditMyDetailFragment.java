@@ -3,6 +3,8 @@ package com.example.loginapp.fragments;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
@@ -11,6 +13,9 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -35,6 +40,7 @@ public class EditMyDetailFragment extends Fragment implements View.OnClickListen
     private LoginDatabase database;
     private Context context;
     private String PHONE;
+    private SharedPreferences pref;
 
 
     public EditMyDetailFragment() { }
@@ -43,6 +49,7 @@ public class EditMyDetailFragment extends Fragment implements View.OnClickListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_edit_my_detail, container, false);
+        setHasOptionsMenu(true);
         context = inflater.getContext();
         database = new LoginDatabase(context);
         fNameEd = v.findViewById(R.id.fNameEd);
@@ -51,6 +58,7 @@ public class EditMyDetailFragment extends Fragment implements View.OnClickListen
         phoneEd = v.findViewById(R.id.phoneEd);
         pwdEd = v.findViewById(R.id.pwd1Ed);
         dobEd = v.findViewById(R.id.dobEd);
+        pref = getContext().getSharedPreferences("preference", Context.MODE_PRIVATE);
         Button button = v.findViewById(R.id.update);
         Cursor cursor = database.getUser(MainActivity.getUserPhone()+"");
         cursor.moveToFirst();
@@ -65,6 +73,45 @@ public class EditMyDetailFragment extends Fragment implements View.OnClickListen
         dobEd.setOnClickListener(this);
         button.setOnClickListener(this);
         return v;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.mymenu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        boolean bool;
+
+        if (item.getItemId() == R.id.detail){
+            final LoginDatabase db = new LoginDatabase(getContext());
+            new android.app.AlertDialog.Builder(context).setTitle("Are you sure?").setMessage("You will be unregistered from this application")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            db.deleteUser(MainActivity.USER_PHONE);
+                            SharedPreferences.Editor edit = pref.edit();
+                            edit.putInt("loggedIn", 0);
+                            edit.apply();
+                            Intent i = new Intent(context, MainActivity.class);
+                            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(i);
+                            Toast.makeText(context, "Good Bye!", Toast.LENGTH_SHORT).show();
+                        }
+                    }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            }).setCancelable(false).show();
+            bool = true;
+        }
+
+        else
+            bool = false;
+        return bool;
     }
 
     public boolean isValidEmail(String s) {

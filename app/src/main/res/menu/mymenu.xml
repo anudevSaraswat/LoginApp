@@ -2,10 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="detail"
+        android:id="@+id/detail"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         app:showAsAction="always"
-        android:title="@string/mydetail">
+        android:title="@string/mydetail"
+        android:icon="@drawable/ic_delete_black_24dp">
     </item>
 
 </menu>
