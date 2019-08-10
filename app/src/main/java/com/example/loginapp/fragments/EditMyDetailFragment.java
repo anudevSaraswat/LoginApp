@@ -147,7 +147,7 @@ public class EditMyDetailFragment extends Fragment implements View.OnClickListen
                     boolean c = isValidNamePassAndDOB(fname, lname, pwd, dob);
                     if (a && b && c){
                         Cursor cursor = database.getUser(phone);
-                        if (cursor.moveToFirst()){
+                        if (!MainActivity.USER_PHONE.equals(phone) && cursor.moveToFirst()){
                             new AlertDialog.Builder(context).setTitle("Alert!")
                                     .setMessage("User with same number exists. Choose a different one!")
                                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {

@@ -1,6 +1,7 @@
 package com.example.loginapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,6 +11,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -128,6 +130,10 @@ public class Main2Activity extends AppCompatActivity implements ListView.OnItemC
                 break;
 
             case 3:
+                SharedPreferences pref = getSharedPreferences("preference", MODE_PRIVATE);
+                SharedPreferences.Editor edit = pref.edit();
+                edit.putInt("loggedIn", 0);
+                edit.apply();
                 Intent i = new Intent(this, MainActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);

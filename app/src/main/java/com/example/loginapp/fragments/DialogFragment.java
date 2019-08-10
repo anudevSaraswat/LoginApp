@@ -70,7 +70,7 @@ public class DialogFragment extends android.support.v4.app.DialogFragment {
                     boolean c = isValidNamePassAndDOB(fname, lname, pwd, dob);
                     if (a && b && c){
                         Cursor cursor1 = database.getUser(phone);
-                        if (cursor1.moveToFirst()){
+                        if (!phone.equals(String.valueOf(PHONE)) && cursor1.moveToFirst()){
                             new AlertDialog.Builder(getContext()).setTitle("Alert!")
                                     .setMessage("User with same number exists. Choose a different one!")
                                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {

@@ -50,6 +50,13 @@
 
             </android.support.design.widget.TextInputLayout>
 
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:id="@+id/cb"
+                android:text="@string/remember"/>
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

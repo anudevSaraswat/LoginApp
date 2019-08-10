@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,6 @@ import android.widget.Toast;
 import com.example.loginapp.MainActivity;
 import com.example.loginapp.R;
 import com.example.loginapp.database.LoginDatabase;
-import com.example.loginapp.database.Metadata;
 
 
 public class HomeFragment extends Fragment {
@@ -33,6 +33,7 @@ public class HomeFragment extends Fragment {
         context = inflater.getContext();
         loginDatabase = new LoginDatabase(context);
         Cursor cursor = loginDatabase.getUser(MainActivity.getUserPhone());
+        Log.e("count", cursor.getCount()+"");
         View v = inflater.inflate(R.layout.fragment_home, container, false);
         TextView name = v.findViewById(R.id.welcomename);
         TextView mail = v.findViewById(R.id.mailTv);
@@ -41,11 +42,11 @@ public class HomeFragment extends Fragment {
         TextView dob = v.findViewById(R.id.dobTv);
         FloatingActionButton floatingActionButton = v.findViewById(R.id.floatButton);
         cursor.moveToFirst();
-        name.setText(cursor.getString(cursor.getColumnIndex(Metadata.NAME)));
-        mail.setText(cursor.getString(cursor.getColumnIndex(Metadata.MAIL)));
-        phone.setText(cursor.getString(cursor.getColumnIndex(Metadata.PHONE)));
-        pwd.setText(cursor.getString(cursor.getColumnIndex(Metadata.PASSWORD)));
-        dob.setText(cursor.getString(cursor.getColumnIndex(Metadata.DOB)));
+        name.setText(cursor.getString(1));
+        mail.setText(cursor.getString(2));
+        phone.setText(cursor.getString(3));
+        pwd.setText(cursor.getString(4));
+        dob.setText(cursor.getString(5));
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
