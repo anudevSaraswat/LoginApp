@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F6DDCC"
     tools:context=".MainActivity">
 
     <ScrollView
@@ -63,7 +62,9 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:id="@+id/loginbtn"
-                android:text="@string/login"/>
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                android:text="@string/login"
+                android:textSize="15sp"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"

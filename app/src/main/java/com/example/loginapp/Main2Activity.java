@@ -22,8 +22,6 @@ import com.example.loginapp.fragments.AboutFragment;
 import com.example.loginapp.fragments.AllUserFragment;
 import com.example.loginapp.fragments.EditMyDetailFragment;
 
-import javax.xml.datatype.Duration;
-
 public class Main2Activity extends AppCompatActivity implements ListView.OnItemClickListener {
 
     private FragmentManager manager;
@@ -102,7 +100,7 @@ public class Main2Activity extends AppCompatActivity implements ListView.OnItemC
         Toast toast = new Toast(this);
         toast.setGravity(Gravity.CENTER, 100, 0);
         toast.setView(v);
-        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setDuration(Toast.LENGTH_SHORT);
         toast.show();
     }
 

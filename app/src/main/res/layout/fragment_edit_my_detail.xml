@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F6DDCC"
+    android:background="@color/backgroundColor"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.EditMyDetailFragment">
 
@@ -129,6 +129,9 @@
             android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/dobParent"
+            android:textSize="15sp"
+            android:textAllCaps="true"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
             android:id="@+id/update"/>
 
     </RelativeLayout>
