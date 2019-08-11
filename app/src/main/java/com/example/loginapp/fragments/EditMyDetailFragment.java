@@ -94,6 +94,9 @@ public class EditMyDetailFragment extends Fragment implements View.OnClickListen
                             db.deleteUser(MainActivity.USER_PHONE);
                             SharedPreferences.Editor edit = pref.edit();
                             edit.putInt("loggedIn", 0);
+                            edit.putString("userPhone1", "");
+                            edit.putString("userPhone2", "");
+                            edit.putString("userPassword", "");
                             edit.apply();
                             Intent i = new Intent(context, MainActivity.class);
                             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -9,10 +9,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,6 +21,8 @@ import android.widget.Toast;
 import com.example.loginapp.fragments.AboutFragment;
 import com.example.loginapp.fragments.AllUserFragment;
 import com.example.loginapp.fragments.EditMyDetailFragment;
+
+import javax.xml.datatype.Duration;
 
 public class Main2Activity extends AppCompatActivity implements ListView.OnItemClickListener {
 
@@ -97,6 +98,12 @@ public class Main2Activity extends AppCompatActivity implements ListView.OnItemC
                 bar.setTitle(actionBarText);
             }
         });
+        View v = View.inflate(this, R.layout.customtoast, null);
+        Toast toast = new Toast(this);
+        toast.setGravity(Gravity.CENTER, 100, 0);
+        toast.setView(v);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.show();
     }
 
 
@@ -167,9 +174,11 @@ public class Main2Activity extends AppCompatActivity implements ListView.OnItemC
             if (drawerLayout.isDrawerOpen(listView))
                 drawerLayout.closeDrawer(listView);
         }
-        else
+        else {
+            Toast.makeText(this, "Already on first page!", Toast.LENGTH_SHORT).show();
             if (drawerLayout.isDrawerOpen(listView))
-            drawerLayout.closeDrawer(listView);
+                drawerLayout.closeDrawer(listView);
+        }
     }
 
 
