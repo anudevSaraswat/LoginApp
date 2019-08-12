@@ -85,7 +85,7 @@ public class EditMyDetailFragment extends Fragment implements View.OnClickListen
 
         boolean bool;
 
-        if (item.getItemId() == R.id.detail){
+        if (item.getItemId() == R.id.delete){
             final LoginDatabase db = new LoginDatabase(getContext());
             new android.app.AlertDialog.Builder(context).setTitle("Are you sure?").setMessage("You will be unregistered from this application")
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {

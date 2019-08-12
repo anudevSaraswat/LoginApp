@@ -29,7 +29,6 @@
     <string name="delete">Delete</string>
     <string name="edit">Edit user</string>
     <string name="remember">Remember me</string>
-    <string name="mydetail">My Details</string>
     <string name="toastText">Swipe left on any user to edit!</string>
     <string name="splashText">Login App</string>
     <string name="about">Just a small application demonstrating features like registering user, log in, log out. Have fun!</string>
