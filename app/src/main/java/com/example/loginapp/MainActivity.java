@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.loginapp.database.LoginDatabase;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -122,5 +123,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         return status;
+    }
+
+    private void insertThousand(){
+        LoginDatabase db = new LoginDatabase(this);
+        String ALPHABETS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        Random random = new Random(1000000000);
+        String[] numbers = new String[1000];
+        String[] name = new String[1000];
+        String[] mail = new String[1000];
+
+        //generating 1000 random numbers
+        for (int i = 0; i < 1000; i++)
+            numbers[i] = random.nextInt(1000000000)+"1";
+
+        //generating 1000 random strings for name
+        for (int i = 0; i < 1000; i++){
+            StringBuilder builder = new StringBuilder();
+            for(int j = 0; j < 5; j++)
+                builder.append(ALPHABETS.charAt((int)(Math.random() * ALPHABETS.length())));
+            name[i] = builder.toString();
+        }
+
+        //generating 1000 random for email
+        for (int i = 0; i < 1000; i++){
+            StringBuilder builder = new StringBuilder();
+            for(int j = 0; j < 5; j++)
+                builder.append(ALPHABETS.charAt((int)(Math.random() * ALPHABETS.length())));
+            mail[i] = builder.toString() + "@gm.com";
+        }
+
+        //inserting 1000 records
+        for (int i = 0; i < 1000; i++){
+            db.insertValues(name[i] + " " + name[i],
+                    mail[i], numbers[i], "hello",
+                    random.nextInt(32) + "/" + random.nextInt(13) + "/" + random.nextInt(2000));
+        }
+
     }
 }

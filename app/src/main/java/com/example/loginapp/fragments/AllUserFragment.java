@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
@@ -43,7 +44,7 @@ public class AllUserFragment extends Fragment {
         db = new LoginDatabase(inflater.getContext());
         cursor = db.getAllUsers(MainActivity.getUserPhone());
         cursor.moveToFirst();
-        ListView userList = v.findViewById(R.id.userList);
+        final ListView userList = v.findViewById(R.id.userList);
         cursorAdapter = new SimpleCursorAdapter(inflater.getContext(),
                 R.layout.list_item, cursor, new String[]{Metadata.NAME, Metadata.PHONE},
                 new int[]{R.id.nameTv, R.id.phoneTv});
@@ -128,6 +129,7 @@ public class AllUserFragment extends Fragment {
             public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
                 ++count;
                 arrayList.add(position+"");
+                //adapter.getListView().setItemChecked(position, true);
             }
 
             @Override
@@ -138,7 +140,7 @@ public class AllUserFragment extends Fragment {
 
             @Override
             public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                return false;
+                return true;
             }
 
             @Override
